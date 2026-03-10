@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="100" y="80" width="1000" height="470" rx="24" fill="#0c1a18" stroke="#1a3a35" stroke-width="2"/>
+
+  <!-- Radio circles (speaker) -->
+  <circle cx="600" cy="280" r="80" fill="none" stroke="#00e5c6" stroke-width="1.5" opacity="0.3"/>
+  <circle cx="600" cy="280" r="55" fill="none" stroke="#00e5c6" stroke-width="1" opacity="0.4"/>
+  <circle cx="600" cy="280" r="30" fill="none" stroke="#00e5c6" stroke-width="1" opacity="0.5"/>
+  <circle cx="600" cy="280" r="8" fill="#00e5c6" opacity="0.8"/>
+
+  <!-- Glow effect -->
+  <circle cx="600" cy="280" r="120" fill="url(#glow)" opacity="0.5"/>
+  <defs>
+    <radialGradient id="glow">
+      <stop offset="0%" stop-color="#00e5c6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="440" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="48" fill="#00e5c6" letter-spacing="8">
+    TIME TRAVELER'S
+  </text>
+  <text x="600" y="490" text-anchor="middle" font-family="sans-serif" font-weight="400" font-size="28" fill="#00997f" letter-spacing="16">
+    RADIO
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="530" text-anchor="middle" font-family="serif" font-size="18" fill="#555" letter-spacing="2">
+    Tune Into Any Era — 1947 to 2077
+  </text>
+</svg>
