@@ -23,7 +23,7 @@ app.use((req, res, next) => {
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https://i.ytimg.com",
       "frame-src https://www.youtube.com",
-      "connect-src 'self'",
+      "connect-src 'self' https://cdn.jsdelivr.net",
       "media-src 'self'",
     ].join('; ')
   );

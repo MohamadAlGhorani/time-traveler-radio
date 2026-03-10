@@ -101,12 +101,17 @@ export function useRadioAudio() {
 
   /**
    * IGNITION SEQUENCE
+   *
+   * Mobile browsers require AudioContext.resume() and YouTube player init
+   * to happen within the synchronous call stack of a user gesture.
+   * We init both FIRST, then run the async boot sequence.
    */
   const powerOn = useCallback(async () => {
     const radio = getRadio();
-    await radio.init();
 
-    // Pre-init YouTube player
+    // MUST happen in the synchronous user gesture context
+    // so mobile browsers unlock audio playback.
+    await radio.init();
     await yt.initPlayer();
 
     setIsPowered(true);
