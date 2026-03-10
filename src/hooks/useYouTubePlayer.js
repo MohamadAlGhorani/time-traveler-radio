@@ -89,11 +89,14 @@ export function useYouTubePlayer(containerId = 'yt-player') {
           controls: 0,
           disablekb: 1,
           fs: 0,
+          iv_load_policy: 3,
           modestbranding: 1,
           rel: 0,
           showinfo: 0,
           playsinline: 1, // Critical for iOS
           origin: window.location.origin,
+          // Mobile: enable JS API and allow programmatic playback
+          enablejsapi: 1,
         },
         events: {
           onReady: () => {
@@ -135,6 +138,8 @@ export function useYouTubePlayer(containerId = 'yt-player') {
 
   /**
    * Play a specific YouTube video by ID.
+   * On mobile, loadVideoById may fail silently (autoplay blocked).
+   * We cue the video and then call playVideo() as a fallback.
    */
   const playVideo = useCallback(async (videoId) => {
     if (!videoId) return;
@@ -153,6 +158,17 @@ export function useYouTubePlayer(containerId = 'yt-player') {
         videoId,
         startSeconds: 0,
       });
+
+      // Mobile fallback: if not playing after 1s, try cueVideoById + playVideo
+      setTimeout(() => {
+        try {
+          const state = playerRef.current?.getPlayerState?.();
+          // -1=unstarted, 0=ended, 2=paused, 3=buffering, 5=cued
+          if (state !== 1 && state !== 3) {
+            playerRef.current?.playVideo();
+          }
+        } catch (e) { /* ignore */ }
+      }, 1000);
     } catch (e) {
       console.warn('[YT Player] Failed to load video:', e);
     }

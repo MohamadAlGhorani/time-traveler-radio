@@ -107,6 +107,18 @@ export class RadioManager {
 
     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
 
+    // Mobile browsers suspend AudioContext until a user gesture resumes it
+    if (this.ctx.state === 'suspended') {
+      await this.ctx.resume();
+    }
+
+    // Prime speech synthesis on iOS (must be triggered from user gesture)
+    if (this.speechSynth) {
+      const primer = new SpeechSynthesisUtterance('');
+      primer.volume = 0;
+      this.speechSynth.speak(primer);
+    }
+
     // ── AnalyserNode ──
     this.analyser = this.ctx.createAnalyser();
     this.analyser.fftSize = 128;           // 64 frequency bins
